@@ -1,26 +1,36 @@
-alert('Starting your Mars adventure');
+alert('- Starting your Mars adventure -');
 alert('Booting up...');
 alert('All systems go!');
 alert("Let's start!");
 
-const username = prompt("Hi there. What's your name?");
+let username = '';
+while(username === '') {
+    username = prompt("Hi there. What's your name?");
+}
 alert("Hi " + username + " --- Welcome to the Mars Adventure game!");
 alert("Yesterday, you received a call from your good friend at NASA.");
 alert("They need someone to go to Mars this weekend, and YOU'VE been chosen!!");
 
-let excited = prompt("Are you excited? (Type Y or N)");
+let excited = '';
+while(excited === '') {
+    excited = prompt("Are you excited? (Type Y or N)");
+}
 excited = scrubInput(excited, true);
 
-if(excited === 'Y') {
+if(excited.startsWith('Y')) {
     alert("I knew you'd say that. It's so cool that you're going to Mars!");
-} else if (excited === 'N') {
+} else if (excited.startsWith('N')) {
     alert("Well, it's too late to back out now.");
 } else {
     alert("Gonna be a rough trip if you can't follow simple instructions...")
 }
 
 alert("It's time to pack for your trip to Mars.");
-let numSuitcases = prompt('How many suitcases do you plan to bring?');
+let numSuitcases;
+const numbers = /^[0-9]+$/; //regex expression to check for valid numeric input
+while (!numbers.test(numSuitcases)) {
+    numSuitcases = prompt('How many suitcases do you plan to bring?');
+}
 numSuitcases = Number(numSuitcases);
 
 if(numSuitcases > 2) {
@@ -29,8 +39,6 @@ if(numSuitcases > 2) {
     alert("Perfect. You’ll certainly fit in the spaceship!");
 }
 
-let firstLetter;
-let otherLetters;
 alert("You're allowed to bring one companion animal with you.");
 let companionType = prompt('What kind of companion animal would you like to bring?');
 let companionName = prompt("What is your companion's name?");
@@ -64,13 +72,15 @@ while (timer > 0) {
 alert("*** LIFTOFF ***");
 
 function scrubInput(inputString, firstLetterCap) {
-    let alpha = /^[a-zA-Z]+$/;
-    let cleanString = inputString.trim();
+    const alpha = /^[a-zA-Z0-9 ]+$/; //regex expression to check input is alphanum
+    let cleanString = inputString;
     let firstLetter;
 
-    if (!alpha.test(inputString)){
-        return  "z";
+    if (!alpha.test(cleanString)){
+        return  "z"; //set it to something so it isn't empty
     };
+
+    cleanString = cleanString.trim();
 
     if(firstLetterCap) {
         cleanString = cleanString.toLowerCase();
